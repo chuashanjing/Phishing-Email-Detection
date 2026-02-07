@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Phishing Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="../static/index.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="../static/image/logo.png">
+            <p>Phishing Email Detection</p>
+        </a>
+    </nav>
+
+    
+    <section id="Phishing">
+        <h2>Detect Phishing Email and Domains</h2>
+
+        <div>
+            <!-- send post request to route '/'-->
+            <form method="POST" action="/">
+                <input type="text" id="domain" name="domain" placeholder="Whitelist: @google.com" autocomplete="off" pattern="^@.+" title="Domain must start with @" required>
+            </form>
+
+            <div class="filter">
+                <!-- domains is the inputted domains ^ -->
+                <!-- loop through the the list and display them -->
+                {% for i in domains %}
+                <div class="filter-button">
+                    <p>{{ i }}</p>
+                    <button onclick="removeDomain('{{ i }}')">x</button>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+
+    <section id="uploading">
+        <!-- input box for uploading csv file, sends post request to /upload_csv in flask-->
+        <form onclick="openUpload()" class="csvForm-ct" action="/upload_csv" method="POST" enctype="multipart/form-data">
+            <!-- onchange: when file is uploaded -->
+            <input name="csvFile" 
+                onchange="upload_csv(this)" 
+                type="file" 
+                accept=".csv" 
+                id="formFile" required>
+            <div class="csvForm-text">
+                <img src="../static/image/cloud.png">
+                Click anywhere here to upload your CSV file
+            </div>
+        </form>
+        <!-- empty table -->
+        <form action="/rulebased" method="POST" id="phishform">
+            <button id="checkbutton" style="display: none">Check Phishing</button>
+        </form>
+
+        <div id="histogram-container"></div>
+        <div id="scatterplot-container"></div>
+        <div id="grouped-container"></div>
+        <div id="boxplot-container"></div>
+        <div id="table" class="showTable mt-3" style="display: none;"></div>
+    </section>
+
+    <script>
+        
+        function loadHistogram() {
+            fetch('/get_histogram')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('histogram-container');
+                    if (data.plot_url) 
+                        {
+                        container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
+                    } else 
+                    {
+                        console.error(data.error);
+                    }
+            });
+        }
+
+        function loadScatterPlot() {
+            fetch('/get_scatterplot')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('scatterplot-container');
+                    if (data.plot_url) 
+                        {
+                        container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
+                    } else 
+                    {
+                        console.error(data.error);
+                    }
+            });
+        }
+
+        function loadGroupedChart() {
+            fetch('/get_grouped_chart')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('grouped-container');
+                    if (data.plot_url) 
+                        {
+                        container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
+                    } else 
+                    {
+                        console.error(data.error);
+                    }
+            });
+        }
+
+        function loadBoxPlot() {
+            fetch('/get_boxplot')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('boxplot-container');
+                    if (data.plot_url) 
+                        {
+                        container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
+                    } else 
+                    {
+                        console.error(data.error);
+                    }
+            });
+        }
+        
+        document.getElementById("checkbutton").addEventListener("click", function(event){
+            
+            setTimeout(loadHistogram, 2000);
+            setTimeout(loadScatterPlot, 2700);
+            setTimeout(loadGroupedChart, 2800);
+            setTimeout(loadBoxPlot, 2900);
+            document.getElementById("checkbutton").style.display = "none";
+            document.getElementById("table").style.display = "none";
+        });
+
+    </script>
+
+</body>
+</html>

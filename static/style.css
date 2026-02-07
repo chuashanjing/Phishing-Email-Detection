@@ -1,0 +1,204 @@
+@font-face {
+    font-family: 'Poppins SemiBold';
+    src: url('fonts/Poppins-SemiBold.ttf') format('trueType');
+}
+@font-face {
+    font-family: 'Poppins Regular';
+    src: url("fonts/Poppins-Regular.ttf") format('trueType');
+}
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.modal {
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    background: white;
+    max-width: 1000px;
+    height: auto;
+    padding: 35px;
+    border-radius: 5px;
+    position: fixed;
+}
+
+
+.close {
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    cursor: pointer;
+}
+
+.nav {
+    position: absolute;
+    border: none;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav.left {
+    left: 2%; /* stick to the left */
+}
+
+.nav.right {
+    right: 2%; /* stick to the right */
+}
+
+.slide {
+    display: none;;
+}
+
+.slide.active {
+    display: block;
+}
+
+
+/* aadadasd */
+
+nav {
+    border-bottom: 1px solid grey;
+    height: 80px;
+}
+
+nav a{
+    padding-left: 20px;
+    display: flex;
+    gap: 10px;
+    font-family: 'Poppins SemiBold', sans-serif;
+}
+
+nav img{
+    width: 40px;
+    height: 40px;
+}
+
+#Phishing {
+    padding-left: 400px;
+    padding-right: 400px;
+    padding-top: 150px;
+    text-align: center;
+}
+#Phishing h2{
+    font-family: 'Poppins SemiBold', sans-serif;
+    font-size: 40px;
+}
+
+form {
+    margin-top: 70px;
+}
+
+form input{
+    width: 800px;
+    height: 60px;
+    padding-left: 30px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: 'Poppins Regular', sans-serif;
+}
+
+.filter {
+    display: flex;
+    gap: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 10px auto 0;
+    width: 800px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+}
+
+.filter::-webkit-scrollbar {
+    height: 6px;
+}
+.filter::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+}
+
+.filter-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+.filter-button p{
+    margin: 0;
+    font-size: 10px;
+    font-family: 'Poppins Regular', sans-serif;
+}
+
+.filter-button button{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: bold;
+    height: 12px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+ #uploading {
+      display: flex;
+      flex-direction: column;  
+      align-items: center;     
+      justify-content: center; 
+      text-align: center;
+  }
+
+.csvForm-ct {
+    width: 700px;
+    height: 300px;
+    border: 2px dashed gray;         /* dotted border */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;                  /* pointer on hover */
+    background-color: #f9f9f9;
+    position: relative;
+    margin: 20px auto;
+    transition: background-color 0.2s;
+}
+
+.csvForm-ct input[type="file"] {
+    display: none;
+}
+.csvForm-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: gray;
+}
+.csvForm-text img {
+    width: 60px;
+    height: 60px;
+}
+
+.showTable {
+    width: 1000px;
+    height: 500px;
+    border-radius: 15px;
+    margin-top: 15px;
+    overflow-y: auto;
+}
+
+.showTable table,th,td {
+    text-align:  left !important; 
+}
