@@ -68,75 +68,83 @@
     </section>
 
     <script>
-        
-        function loadHistogram() {
-            fetch('/get_histogram')
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.getElementById('histogram-container');
-                    if (data.plot_url) 
-                        {
-                        container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
-                    } else 
-                    {
-                        console.error(data.error);
-                    }
-            });
+
+        async function loadHistogram(){
+            try {
+                const response = await fetch('/get_histogram');
+                const data = await response.json();
+                const container = document.getElementById('histogram-container');
+
+                if (data.plot_url){
+                    container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
+                }
+                else {
+                    console.error(data.error);
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
 
-        function loadScatterPlot() {
-            fetch('/get_scatterplot')
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.getElementById('scatterplot-container');
-                    if (data.plot_url) 
-                        {
-                        container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
-                    } else 
-                    {
-                        console.error(data.error);
-                    }
-            });
+        async function loadScatterPlot(){
+            try {
+                const response = await fetch('/get_scatterplot');
+                const data = await response.json();
+                const container = document.getElementById('scatterplot-container');
+
+                if (data.plot_url){
+                    container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
+                }
+                else {
+                    console.error(data.error);
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
 
-        function loadGroupedChart() {
-            fetch('/get_grouped_chart')
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.getElementById('grouped-container');
-                    if (data.plot_url) 
-                        {
-                        container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
-                    } else 
-                    {
-                        console.error(data.error);
-                    }
-            });
+        async function loadGroupedChart(){
+            try {
+                const response = await fetch('/get_grouped_chart');
+                const data = await response.json();
+                const container = document.getElementById('grouped-container');
+
+                if (data.plot_url){
+                    container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
+                }
+                else {
+                    console.error(data.error);
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
 
-        function loadBoxPlot() {
-            fetch('/get_boxplot')
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.getElementById('boxplot-container');
-                    if (data.plot_url) 
-                        {
-                        container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
-                    } else 
-                    {
-                        console.error(data.error);
-                    }
-            });
+        async function loadBoxPlot(){
+            try {
+                const response = await fetch('/get_boxplot');
+                const data = await response.json();
+                const container = document.getElementById('boxplot-container');
+
+                if (data.plot_url){
+                    container.innerHTML = `<img src="data:image/png;base64,${data.plot_url}" class="img-fluid" />`;
+                }
+                else {
+                    console.error(data.error);
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
-        
-        document.getElementById("checkbutton").addEventListener("click", function(event){
-            
-            setTimeout(loadHistogram, 2000);
-            setTimeout(loadScatterPlot, 2700);
-            setTimeout(loadGroupedChart, 2800);
-            setTimeout(loadBoxPlot, 2900);
+         
+        document.getElementById("checkbutton").addEventListener("click", async function(event){
             document.getElementById("checkbutton").style.display = "none";
             document.getElementById("table").style.display = "none";
+            
+            await loadHistogram();
+            await loadScatterPlot();
+            await loadGroupedChart();
+            await loadBoxPlot();
         });
 
     </script>
