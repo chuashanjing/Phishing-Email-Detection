@@ -171,7 +171,7 @@ def distance_check(domain):
     if not matches:
         return 0.0
    
-    for i in real:
+    for i in matches:
 
         length = len(i)
         distance = distance_checker(i, domain)
@@ -227,5 +227,6 @@ def url_detection(body_of_email, email):
                 score += 0.3
 
     score = min(score, 1)
+
 
     return score
