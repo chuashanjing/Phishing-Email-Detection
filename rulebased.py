@@ -224,9 +224,10 @@ def url_detection(body_of_email, email):
         except ValueError:
             #this means its not an ip
             if email not in url:
-                score += 0.3
+                score += 0.4
 
     score = min(score, 1)
 
 
     return score
+
