@@ -138,13 +138,50 @@
         }
          
         document.getElementById("checkbutton").addEventListener("click", async function(event){
+            //prevent the form from submitting the normal way where it just sends a request
+            event.preventDefault();
+            
             document.getElementById("checkbutton").style.display = "none";
             document.getElementById("table").style.display = "none";
             
-            await loadHistogram();
-            await loadScatterPlot();
-            await loadGroupedChart();
-            await loadBoxPlot();
+
+            //makes sure rulebased is called first and finished
+            try {
+                
+                const formData = new FormData();
+                const response = await fetch('/rulebased', {
+                    method: 'POST',
+                    body: formData
+                });
+                //then download the csv from the response
+                if (response.ok) {
+                    //turn data into file
+                    const blob = await response.blob();
+                    //a location where the file will be at
+                    const url = window.URL.createObjectURL(blob);
+                    //new button created
+                    const a = document.createElement('a');
+                    //button has the location of the file link
+                    a.href = url;
+                    //download the file
+                    a.download = 'rule_based_results.csv';
+                    //click the link making it download
+                    a.click();
+                    //remove temporary url
+                    window.URL.revokeObjectURL(url);
+                    
+                    // finally load the graph after retrieving the data
+                    await loadHistogram();
+                    await loadScatterPlot();
+                    await loadGroupedChart();
+                    await loadBoxPlot();
+                } else {
+                    console.error('Error processing data');
+                    alert('Error processing data. Please try again.');
+                }
+            } catch (error) {
+                console.error(error);
+            }
         });
 
     </script>
